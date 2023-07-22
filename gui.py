@@ -42,8 +42,9 @@ class WebcamApp:
         if ret_val:
             result = inference_detector(self.model, frame)
 
-            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
-            # frame_rgb = mmcv.imconvert(frame_rgb, 'rgb', 'rgb')
+            # frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
+            # frame_rgb = mmcv.imconvert(frame_rgb, 'bgr', 'rgb')
+            frame_rgb=frame
             self.visualizer.add_datasample(
                 name='result',
                 image=frame_rgb,
@@ -53,7 +54,7 @@ class WebcamApp:
                 show=False)
 
             frame_rgb = self.visualizer.get_image()
-            # frame_rgb = mmcv.imconvert(frame_rgb, 'rgb', 'rgb')
+            frame_rgb = mmcv.imconvert(frame_rgb, 'bgr', 'rgb')
             self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame_rgb))
             self.canvas.create_image(0, 0, image=self.photo, anchor=tk.NW)
 
